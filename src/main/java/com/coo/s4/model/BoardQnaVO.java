@@ -1,6 +1,6 @@
 package com.coo.s4.model;
 
-public class BoardQnAVO extends BoardVO{
+public class BoardQnaVO extends BoardVO{
 	private Integer ref;
 	private Integer step;
 	private Integer depth;

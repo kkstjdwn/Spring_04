@@ -25,25 +25,24 @@ public class BoardNoticeDAO implements BoardDAO{
 	@Override
 	public BoardVO boardSelect(BoardVO boardVO) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectOne(NAMESPACE+"boardSelect",boardVO);
 	}
 
 	@Override
 	public int boardInsert(BoardVO boardVO) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.insert(NAMESPACE+"boardInsert",boardVO);
 	}
 
 	@Override
 	public int boardUpdate(BoardVO boardVO) throws Exception {
 		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.update(NAMESPACE+"boardUpdate",boardVO);
 	}
 
 	@Override
 	public int boardDelete(BoardVO boardVO) throws Exception {
 		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.delete(NAMESPACE+"boardDelete",boardVO);
 	}
 
 	@Override

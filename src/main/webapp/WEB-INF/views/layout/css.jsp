@@ -22,7 +22,10 @@
  	} 
 	h2{
 	margin: auto;
-	text-align: center;}
+	text-align: center;
+	text-transform: uppercase;
+	}
+	
 	.curPage{
 	background-color: #337ab7;
 	color: white;

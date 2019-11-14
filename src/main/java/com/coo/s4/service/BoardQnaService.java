@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.coo.s4.dao.BoardQnaDAO;
+import com.coo.s4.model.BoardQnaVO;
 import com.coo.s4.model.BoardVO;
 import com.coo.s4.util.Pager;
 
@@ -26,25 +27,44 @@ public class BoardQnaService implements BoardService {
 	@Override
 	public BoardVO boardSelect(BoardVO boardVO) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		return qnaDAO.boardSelect(boardVO);
 	}
 
 	@Override
 	public int boardInsert(BoardVO boardVO) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return qnaDAO.boardInsert(boardVO);
 	}
 
 	@Override
 	public int boardUpdate(BoardVO boardVO) throws Exception {
 		// TODO Auto-generated method stub
-		return 0;
+		return qnaDAO.boardUpdate(boardVO);
 	}
 
 	@Override
 	public int boardDelete(BoardVO boardVO) throws Exception {
 		// TODO Auto-generated method stub
-		return 0;
+		return qnaDAO.boardDelete(boardVO);
+	}
+	
+	public int boardReply(BoardQnaVO qnaVO) throws Exception{
+		
+		
+		qnaDAO.boardReplyUpdate((BoardQnaVO)qnaDAO.boardSelect(qnaVO));
+		qnaVO.setStep(qnaVO.getStep()+1);
+		qnaVO.setDepth(qnaVO.getDepth()+1);
+
+//		첫번째 방법
+//		BoardQnaVO child = new BoardQnaVO();
+//		child.setTitle(qnaVO.getTitle());
+//		child.setContents(qnaVO.getContents());
+//		child.setWriter(qnaVO.getWriter());
+//		child.setRef(qnaVO.getRef());
+//		child.setStep(qnaVO.getStep()+1);
+//		child.setDepth(qnaVO.getDepth()+1);
+//		
+		return qnaDAO.boardReply(qnaVO); 
 	}
 
 }

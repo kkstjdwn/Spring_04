@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="qnaMapper">
   	
-  	<select id="boardList" parameterType="com.coo.s4.util.Pager" resultType="com.coo.s4.model.BoardQnAVO">
+  	<select id="boardList" parameterType="Pager" resultType="QnaVO">
   		
   		select * from (select q.*, ROWNUM R from    (select * from qna 
   		<choose>
@@ -12,23 +12,68 @@
   			<when test="kind == 'kW'">where writer like '%'||#{search}||'%'</when>
   			<when test="kind == 'kC'">where contents like '%'||#{search}||'%'</when>
   		</choose>
-  		ORDER BY num DESC) Q )
+  		ORDER BY ref DESC, step asc, num desc) Q )
 		WHERE r BETWEEN #{startRow} and #{lastRow}
   	
   	</select>
   
-  	<select id="boardCount" resultType="java.lang.Integer" parameterType="com.coo.s4.util.Pager">
+  	<select id="boardCount" resultType="Integer" parameterType="Pager">
   		select count(num) from (select Q.*, ROWNUM R from    (select * from qna 
   		<choose>
   			<when test="kind == 'kT' || kind == '' ">where title like '%'||#{search}||'%'</when>
   			<when test="kind == 'kW'">where writer like '%'||#{search}||'%'</when>
   			<when test="kind == 'kC'">where contents like '%'||#{search}||'%'</when>
   		</choose>
-  		ORDER BY num DESC) Q )
+  		ORDER BY ref DESC, step asc, num desc) Q )
   	</select>
   
+    	<insert id="boardInsert"  parameterType="QnaVO" >
+  		
+  		insert into qna values(not_seq.nextval,#{title},#{writer},#{contents},sysdate,0,not_seq.currval,0,0)
+  	
+  	</insert>
+  	
+  	<select id="boardSelect" resultType="QnaVO" parameterType="QnaVO">
+  		
+  		select * from qna where num = #{num}
+  		
+  	</select>
+  	
+  	<update id="boardUpdate" parameterType="QnaVO">
+  	
+  		update qna set title= #{title}, contents= #{contents}
+  		where num = #{num}
+  	
+  	</update>
+  	
+  	<delete id="boardDelete" parameterType="QnaVO">
+  		
+  		delete qna where num= #{num}
+  	
+  	</delete>
   
-  
+  	
+  	<update id="boardReplyUpdate" parameterType="QnaVO">
+  		update qna set step=step+1
+  		where ref=#{ref} and step > #{step}
+  	</update>
+  	
+  	<insert id="boardReply" parameterType="QnaVO">
+  	
+  		insert into qna values(not_seq.nextval,#{title},#{writer},#{contents},sysdate,0,#{ref},#{step},#{depth})
+  		
+  	</insert>
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
   
   
   </mapper>

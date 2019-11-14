@@ -15,8 +15,13 @@
 		var path = '${path}';
 		
 		
-		alert(msg);
+		if (msg!="" ) {
+		alert(msg);			
+		}
+		
 		location.href=path;			
+		
+		
 		
 	</script>
 
