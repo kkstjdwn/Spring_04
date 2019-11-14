@@ -52,12 +52,12 @@ public class BoardQnaDAO implements BoardDAO {
 		return sqlSession.selectOne(NAMESPACE+"boardCount",pager);
 	}
 	
-	public int boardReplyUpdate(BoardQnaVO qnaVO) throws Exception{
-		return sqlSession.update(NAMESPACE+"boardReplyUpdate",qnaVO);
+	public int boardReplyUpdate(BoardVO boardVO) throws Exception{
+		return sqlSession.update(NAMESPACE+"boardReplyUpdate",boardVO);
 	}
 	
-	public int boardReply(BoardQnaVO qnaVO) throws Exception{
-		return sqlSession.insert(NAMESPACE+"boardReply",qnaVO);
+	public int boardReply(BoardVO boardVO) throws Exception{
+		return sqlSession.insert(NAMESPACE+"boardReply",boardVO);
 	}
 	
 	
