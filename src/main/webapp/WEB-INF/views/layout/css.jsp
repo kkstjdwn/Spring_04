@@ -20,11 +20,13 @@
  	.page_div{ 
  	margin: auto; 
  	} 
+	
+	
 	h2{
 	margin: auto;
 	text-align: center;
-	text-transform: uppercase;
 	}
+	
 	
 	.curPage{
 	background-color: #337ab7;
@@ -82,7 +84,36 @@
 	}
 	#btn_ser{
 	float: left;}
-
+	
+	#pw_warning{
+	color: rgba(255,0,0,0.7);
+	margin-top: 5px;
+	background-color: white;
+	border: 0px white;
+	}
+	#pw_length{
+	color: rgba(255,0,0,0.7);
+	margin-top: 5px;
+	background-color: white;
+	border: 0px white;
+	}
+	#id{
+		display:inline-block;
+		width: 90%;
+	}
+	#id_label{
+		display: block;
+	}
+	#btn_right3{
+	float: right;
+	display:inline-block;
+	margin-right: 0px;
+	margin-left: 5px;
+	text-align: center;}
+	#id_window{
+		display:inline-block;
+		width: 56%;
+	}
 
 
 	
