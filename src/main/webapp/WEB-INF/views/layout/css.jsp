@@ -25,6 +25,10 @@
 	text-align: center;
 	text-transform: uppercase;
 	}
+	h3{
+	margin: auto;
+	text-align: center;
+	}
 	
 	.curPage{
 	background-color: #337ab7;
