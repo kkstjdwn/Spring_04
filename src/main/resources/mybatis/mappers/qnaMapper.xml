@@ -3,15 +3,25 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="qnaMapper">
+  
+  <sql id="ds">
+  <choose>
+  			<when test="kind == 'kW'">where writer like '%'||#{search}||'%'</when>
+  			<when test="kind == 'kC'">where contents like '%'||#{search}||'%'</when>
+  			<otherwise>where title like '%'||#{search}||'%'</otherwise>
+  </choose>
+  </sql>
+  
+  <sql id="fr">
+  	from qna where num = #{num}
+  </sql>
+  
+  
   	
   	<select id="boardList" parameterType="Pager" resultType="QnaVO">
   		
-  		select * from (select q.*, ROWNUM R from    (select * from qna 
-  		<choose>
-  			<when test="kind == 'kT' || kind == '' ">where title like '%'||#{search}||'%'</when>
-  			<when test="kind == 'kW'">where writer like '%'||#{search}||'%'</when>
-  			<when test="kind == 'kC'">where contents like '%'||#{search}||'%'</when>
-  		</choose>
+  		select * from (select q.*, ROWNUM R from    (select * from qna
+  		<include refid="ds"/>
   		ORDER BY ref DESC, step asc, num desc) Q )
 		WHERE r BETWEEN #{startRow} and #{lastRow}
   	
@@ -19,11 +29,7 @@
   
   	<select id="boardCount" resultType="Integer" parameterType="Pager">
   		select count(num) from (select Q.*, ROWNUM R from    (select * from qna 
-  		<choose>
-  			<when test="kind == 'kT' || kind == '' ">where title like '%'||#{search}||'%'</when>
-  			<when test="kind == 'kW'">where writer like '%'||#{search}||'%'</when>
-  			<when test="kind == 'kC'">where contents like '%'||#{search}||'%'</when>
-  		</choose>
+  		<include refid="ds"/>
   		ORDER BY ref DESC, step asc, num desc) Q )
   	</select>
   
@@ -56,16 +62,16 @@
   	<update id="boardReplyUpdate" parameterType="BoardVO">
   	
   		update qna set step=step+1
-  		where ref = (select ref from qna where num = #{num}) 
-  		and step > (select step from qna where num = #{num})
+  		where ref = (select ref <include refid="fr"/>) 
+  		and step > (select step <include refid="fr"/>)
   	</update>
   	
   	<insert id="boardReply" parameterType="BoardVO">
   	
   		insert into qna values(not_seq.nextval,#{title},#{writer},#{contents},sysdate,0,
-  		(select ref from qna where num = #{num}),
-  		(select step from qna where num = #{num})+1 ,
-  		(select depth from qna where num = #{num})+1 )
+  		(select ref <include refid="fr"/>),
+  		(select step <include refid="fr"/>)+1 ,
+  		(select depth <include refid="fr"/>)+1 )
   		
   	</insert>
   	

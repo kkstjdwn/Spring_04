@@ -4,15 +4,20 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="noticeMapper">
+ 
+   <sql id="ds">
+  <choose>
+  			<when test="kind == 'kW'">where writer like '%'||#{search}||'%'</when>
+  			<when test="kind == 'kC'">where contents like '%'||#{search}||'%'</when>
+  			<otherwise>where title like '%'||#{search}||'%'</otherwise>
+  </choose>
+  </sql>
+ 
   	
   	<select id="boardList" parameterType="Pager" resultType="NoticeVO">
   		
   		select * from (select N.*, ROWNUM R from    (select * from notice 
-  		<choose>
-  			<when test="kind == 'kT' || kind == '' ">where title like '%'||#{search}||'%'</when>
-  			<when test="kind == 'kW'">where writer like '%'||#{search}||'%'</when>
-  			<when test="kind == 'kC'">where contents like '%'||#{search}||'%'</when>
-  		</choose>
+  		<include refid="ds"/>
   		ORDER BY num DESC) N )
 		WHERE r BETWEEN #{startRow} and #{lastRow}
   	
@@ -20,11 +25,7 @@
   
   	<select id="boardCount" resultType="Integer" parameterType="Pager">
   		select count(num) from (select N.*, ROWNUM R from    (select * from notice 
-  		<choose>
-  			<when test="kind == 'kT' || kind == '' ">where title like '%'||#{search}||'%'</when>
-  			<when test="kind == 'kW'">where writer like '%'||#{search}||'%'</when>
-  			<when test="kind == 'kC'">where contents like '%'||#{search}||'%'</when>
-  		</choose>
+  		<include refid="ds"/>
   		ORDER BY num DESC) N )
   	</select>
   
