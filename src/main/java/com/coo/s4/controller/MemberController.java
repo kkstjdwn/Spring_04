@@ -74,7 +74,7 @@ public class MemberController {
 		if (result > 0) {
 			msg = "회원가입 성공";
 		}
-		String path = "index";
+		String path = "/index";
 		mv.addObject("msg", msg);
 		mv.addObject("path", path);
 		mv.setViewName("common/common_result");

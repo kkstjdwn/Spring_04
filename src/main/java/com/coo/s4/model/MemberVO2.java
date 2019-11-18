@@ -1,16 +1,11 @@
 package com.coo.s4.model;
 
-import java.sql.Date;
-
-public class MemberVO {
+public class MemberVO2 {
 	private String id;
 	private String pw;
 	private String name;
 	private String email;
-	private Date birth;
-	public void setBirth(Date birth) {
-		this.birth = birth;
-	}
+	private String birth;
 	private String gender;
 	private Integer point;
 	public String getId() {
@@ -37,8 +32,11 @@ public class MemberVO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public Date getBirth() {
+	public String getBirth() {
 		return birth;
+	}
+	public void setBirth(String birth) {
+		this.birth = birth;
 	}
 	public String getGender() {
 		return gender;

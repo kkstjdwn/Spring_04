@@ -31,7 +31,7 @@
     </div>
     <div class="form-group">
       <label for="birth">Birth</label>
-      <input type="text" class="form-control" id="birth" name="birth" readonly="readonly" value="${member.birth }">
+      <input type="text" class="form-control" id="birth" name="birth"  placeholder="Enter birth"  value="${member.birth }">
     </div>
     <div class="form-group">
       <label for="gender">Gender</label>
