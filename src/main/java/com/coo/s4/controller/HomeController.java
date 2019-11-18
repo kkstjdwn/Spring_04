@@ -3,6 +3,7 @@ package com.coo.s4.controller;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Random;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +35,14 @@ public class HomeController {
 		model.addAttribute("serverTime", formattedDate );
 		
 		return "index";
+	}
+	
+	@RequestMapping(value = "/getNum",method = {RequestMethod.GET,RequestMethod.POST})
+	public void getNum(int num, Model model) throws Exception{
+		Random r = new Random();
+		num = r.nextInt(num);
+		model.addAttribute("num", num);
+		
 	}
 	
 }
