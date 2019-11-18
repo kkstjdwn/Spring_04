@@ -4,6 +4,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -134,6 +135,21 @@ public class MemberController {
 		
 		
 		return mv;
+	}
+	
+	@PostMapping("memCheck")
+	public void memIdCheck(Model model,String id)throws Exception{
+		MemberVO memberVO = new MemberVO();
+		memberVO.setId(id);
+		String result="unpass";
+		memberVO=service.memberIdCheck(memberVO);
+		
+		if (memberVO==null && id!="") {
+			result = "pass";
+		}
+		model.addAttribute("result", result);
+		
+		
 	}
 	
 	

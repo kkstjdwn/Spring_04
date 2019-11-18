@@ -12,11 +12,11 @@
 <c:import url="../layout/nav.jsp"  />
 <c:import url="../layout/bootStrap.jsp"/>
 <div class="container">
-  <form action="memberJoin" method="post">
+  <form action="memberJoin" method="post" onsubmit="check()">
     <div class="form-group">
       <label for="id">Id</label>
       <input type="text" required="required" class="form-control" id="id" placeholder="Enter id" name="id" value="${param.id }">
-      <button type="button" class="btn btn-success">ID중복확인</button>
+      <div class="form-group" id="id_check"></div>
     </div>
     <div class="form-group">
       <label for="pw">Password</label>
@@ -43,15 +43,37 @@
     </div>
     <button type="submit" class="btn btn-info" id="btn_right">회원가입</button>
   </form>
+  <script type="text/javascript">
+  	var idCheck = false;
   
-<script type="text/javascript">
-	
-	$(".btn-success").click(function() {
-		open("memberIdCheck?id="+$("#id").val(),"","width=600,height=200,top=300,left=600","");
+  	$("#id").blur(function() {
+  		$.post("memCheck", {id:$("#id").val()}, function(data) {
+		//$.get("memIdCheck?id="+$("#id").val(), function(data) {
+			if (data == "pass") {
+				
+			$("#id_check").html("사용가능한 ID 입니다!");
+			$("#id_check").prop("class","text-info");
+			idCheck = true;
+			}else{
+				$("#id_check").html("식상한 ID 입니다!");
+				$("#id_check").prop("class","text-danger");
+				idCheck = false;
+			}
+			
+			
+			
+		});
 	});
+  		
+  $("#btn_right").click(function check() {
+	if (idCheck) {
+		return true;
+	}
+	return false;
+});
+  
+  </script>
 
-
-</script>
 </div>
 </body>
 </html>
