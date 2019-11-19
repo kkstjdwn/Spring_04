@@ -12,7 +12,7 @@
 <c:import url="../layout/nav.jsp"  />
 <c:import url="../layout/bootStrap.jsp"/>
 <div class="container">
-  <form action="memberJoin" method="post" onsubmit="check()">
+  <form action="memberJoin" method="post" onsubmit="check()" enctype="multipart/form-data">
     <div class="form-group">
       <label for="id">Id</label>
       <input type="text" required="required" class="form-control" id="id" placeholder="Enter id" name="id" value="${param.id }">
@@ -35,11 +35,15 @@
       <input type="date" required="required" class="form-control" id="birth" name="birth">
     </div>
     <div class="form-group">
-      <label for="phone">birth</label>
+      <label for="gender">Gender</label>
       <select  required="required" class="form-control" name="gender">
       	<option id="male" value="M">MALE</option>
       	<option id="female" value="F">FEMALE</option>
       </select>
+    </div>
+    <div class="form-group">
+      <label for="file">File</label>
+      <input type="file" required="required" class="form-control" id="file" name="file">
     </div>
     <button type="submit" class="btn btn-info" id="btn_right">회원가입</button>
   </form>
@@ -49,7 +53,8 @@
   	$("#id").blur(function() {
   		$.post("memCheck", {id:$("#id").val()}, function(data) {
 		//$.get("memIdCheck?id="+$("#id").val(), function(data) {
-			if (data == "pass") {
+			data = data.trim();
+			if (data == 'pass') {
 				
 			$("#id_check").html("사용가능한 ID 입니다!");
 			$("#id_check").prop("class","text-info");

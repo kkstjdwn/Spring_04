@@ -1,11 +1,13 @@
 package com.coo.s4.service;
 
+import javax.servlet.http.HttpSession;
+
 import com.coo.s4.model.MemberVO;
 
 public interface MemberService {
 	
 	//join
-		public int memberInsert(MemberVO memberVO)throws Exception;
+		public int memberInsert(MemberVO memberVO, HttpSession session)throws Exception;
 		
 		//login
 		public MemberVO memberLogin(MemberVO memberVO) throws Exception;

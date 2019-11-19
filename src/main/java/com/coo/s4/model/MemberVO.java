@@ -2,12 +2,28 @@ package com.coo.s4.model;
 
 import java.sql.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class MemberVO {
 	private String id;
 	private String pw;
 	private String name;
 	private String email;
 	private Date birth;
+	private MultipartFile file;
+	private String fileName;
+	public String getFileName() {
+		return fileName;
+	}
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+	public MultipartFile getFile() {
+		return file;
+	}
+	public void setFile(MultipartFile file) {
+		this.file = file;
+	}
 	public void setBirth(Date birth) {
 		this.birth = birth;
 	}

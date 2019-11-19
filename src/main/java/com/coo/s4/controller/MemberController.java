@@ -1,6 +1,7 @@
 package com.coo.s4.controller;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -8,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.coo.s4.model.MemberVO;
@@ -68,18 +70,23 @@ public class MemberController {
 	}
 	
 	@PostMapping("memberJoin")
-	public ModelAndView memberJoin(MemberVO memberVO) throws Exception{
-		ModelAndView mv = new ModelAndView();
-		int result = service.memberInsert(memberVO);
-		String msg = "회원 가입 실패";
-		if (result > 0) {
-			msg = "회원가입 성공";
-		}
-		String path = "/index";
-		mv.addObject("msg", msg);
-		mv.addObject("path", path);
-		mv.setViewName("common/common_result");
+	public ModelAndView memberJoin(MemberVO memberVO,HttpSession session, HttpServletRequest request) throws Exception{
 		
+		ModelAndView mv = new ModelAndView();
+		int result = service.memberInsert(memberVO, session);
+		
+		
+		
+//		String msg = "회원 가입 실패";
+//		if (result > 0) {
+//			msg = "회원가입 성공";
+//		}
+//		
+//		String path = "/";
+//		mv.addObject("msg", msg);
+//		mv.addObject("path", path);
+//		mv.setViewName("common/common_result");
+//		
 		return mv;
 	}
 	
@@ -143,10 +150,11 @@ public class MemberController {
 		memberVO.setId(id);
 		String result="unpass";
 		memberVO=service.memberIdCheck(memberVO);
-		
+		System.out.println();
 		if (memberVO==null && id!="") {
 			result = "pass";
 		}
+		
 		model.addAttribute("result", result);
 		
 		
