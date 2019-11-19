@@ -8,6 +8,7 @@
   		<typeAlias type="com.coo.s4.model.BoardVO" alias="BoardVO"/>
   		<typeAlias type="com.coo.s4.model.BoardNoticeVO" alias="NoticeVO"/>
   		<typeAlias type="com.coo.s4.model.BoardQnaVO" alias="QnaVO"/>
+  		<typeAlias type="com.coo.s4.model.MemberVO" alias="MemberVO"/>
   		<typeAlias type="com.coo.s4.util.Pager" alias="Pager"/>
   		<typeAlias type="java.lang.String" alias="String"/>
   		<typeAlias type="java.lang.Integer" alias="Integer"/>

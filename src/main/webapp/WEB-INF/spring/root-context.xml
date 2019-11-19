@@ -21,6 +21,7 @@
 		<bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlSession">
 			<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactoryBean"/>
 		</bean>	
+
 		<!-- 잘게 잘라온 파일을 받아주는 API -->
 		<bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
 			<!-- Encoding 설정 -->
