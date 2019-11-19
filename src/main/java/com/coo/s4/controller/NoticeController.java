@@ -4,6 +4,8 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,6 +19,7 @@ import com.coo.s4.util.Pager;
 public class NoticeController {
 	
 	private String board = "notice";
+	private int number = 0;
 	
 	@Inject
 	public BoardNoticeService service;
@@ -118,29 +121,21 @@ public class NoticeController {
 	}
 	
 	
+	@GetMapping("noticeAddFile")
+	public ModelAndView noticeAddFile( )throws Exception{
+		ModelAndView mv = new ModelAndView();
+		number++;
+		mv.addObject("num", number);
+		mv.setViewName("common/files");
+			
+		
+		return mv;
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	@GetMapping("noticeReset")
+	public void noticeReset( )throws Exception{
+		number = 0;
+	}
+
 	
 }

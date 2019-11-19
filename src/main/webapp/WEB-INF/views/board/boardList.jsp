@@ -79,7 +79,7 @@
 							</c:if>
 						</ul>
 					</div>
-					<c:if test="${empty sessionScope.member}">
+					<c:if test="${!empty sessionScope.member}">
 						<a href="${board}Write" class="btn btn-info" id="btn_right">글쓰기</a>
 					</c:if>
 				</div>
