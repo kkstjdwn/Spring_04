@@ -2,6 +2,8 @@ package com.coo.s4.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import com.coo.s4.model.BoardVO;
 import com.coo.s4.util.Pager;
 
@@ -14,7 +16,7 @@ public interface BoardService {
 	public BoardVO boardSelect(BoardVO boardVO) throws Exception;
 	
 	//insert
-	public int boardInsert(BoardVO boardVO) throws Exception;
+	public int boardInsert(BoardVO boardVO,HttpSession session) throws Exception;
 	
 	//update
 	public int boardUpdate(BoardVO boardVO) throws Exception;

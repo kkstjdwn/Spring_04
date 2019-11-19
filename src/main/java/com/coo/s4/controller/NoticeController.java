@@ -1,6 +1,7 @@
 package com.coo.s4.controller;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.coo.s4.model.BoardNoticeVO;
-import com.coo.s4.model.BoardVO;
 import com.coo.s4.service.BoardNoticeService;
 import com.coo.s4.util.Pager;
 
@@ -42,10 +42,10 @@ public class NoticeController {
 	}
 	
 	@RequestMapping(value = "noticeWrite",method = RequestMethod.POST)
-	public ModelAndView boardWrite(BoardNoticeVO noticeVO) throws Exception{
+	public ModelAndView boardWrite(BoardNoticeVO noticeVO, HttpSession session) throws Exception{
 		ModelAndView mv = new ModelAndView();
-		
-		int result = service.boardInsert(noticeVO);
+		session.getServletContext().getRealPath("resources/upload/notice");
+		int result = service.boardInsert(noticeVO,session);
 		
 		String msg = "공지 작성 실패";
 		if (result>0) {

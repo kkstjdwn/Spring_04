@@ -1,10 +1,12 @@
 package com.coo.s4.controller;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.coo.s4.model.BoardQnaVO;
@@ -41,10 +43,10 @@ public class QnAController {
 	}
 	
 	@RequestMapping(value = "qnaWrite",method = RequestMethod.POST)
-	public ModelAndView boardInsert(BoardQnaVO qnAVO ) throws Exception{
+	public ModelAndView boardInsert(BoardQnaVO qnAVO,HttpSession session) throws Exception{
 		ModelAndView mv = new ModelAndView();
 		
-		int result = service.boardInsert(qnAVO);
+		int result = service.boardInsert(qnAVO,session);
 		String msg = "질문 작성 실패";
 		if (result>0) {
 			msg = "질문 작성 성공";

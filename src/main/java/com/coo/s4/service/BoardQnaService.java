@@ -3,6 +3,7 @@ package com.coo.s4.service;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
 
@@ -31,7 +32,7 @@ public class BoardQnaService implements BoardService {
 	}
 
 	@Override
-	public int boardInsert(BoardVO boardVO) throws Exception {
+	public int boardInsert(BoardVO boardVO,HttpSession session) throws Exception {
 		
 		return qnaDAO.boardInsert(boardVO);
 	}
