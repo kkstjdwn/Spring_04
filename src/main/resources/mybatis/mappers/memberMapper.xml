@@ -7,14 +7,14 @@
   
   <insert id="memberInsert" parameterType="MemberVO">
   	
-  	insert into member(id,pw,name,email,birth,gender)
-  	values(#{id},#{pw},#{name},#{email},#{birth},#{gender})
+  	insert into member(id,pw,name,email,birth,gender,filename, originalname)
+  	values(#{id},#{pw},#{name},#{email},#{birth},#{gender},#{filename},#{originalname})
   	
   </insert>
   
   <select id="memberLogin" resultType="MemberVO" parameterType="MemberVO">
   
-  	select id, name, email , to_char(birth,'yyyy-mm-dd') from member where id=#{id} and pw=#{pw}
+  	select id, name, email , birth, gender,filename, originalname from member where id=#{id} and pw=#{pw}
   
   </select>
   

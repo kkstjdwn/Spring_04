@@ -25,9 +25,13 @@ public class MemberServiceimpl implements MemberService {
 		String realPath = session.getServletContext().getRealPath("resources/upload/member");
 		
 		FileSaver fs = new FileSaver();
-	 	memberVO.setFileName(fs.save(realPath, memberVO.getFile()));
 		
-		return 0;//dao.memberInsert(memberVO);
+	 	memberVO.setFilename(fs.save3(realPath, memberVO.getFile()));
+	 	memberVO.setOriginalname(memberVO.getFile().getOriginalFilename());
+	 	
+	 	
+		
+		return dao.memberInsert(memberVO);
 	}
 
 	@Override
@@ -45,7 +49,7 @@ public class MemberServiceimpl implements MemberService {
 	@Override
 	public int memberDelete(MemberVO memberVO) throws Exception {
 		// TODO Auto-generated method stub
-		return memberDelete(memberVO);
+		return dao.memberDelete(memberVO);
 	}
 
 	@Override

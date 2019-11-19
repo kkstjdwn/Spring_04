@@ -77,16 +77,16 @@ public class MemberController {
 		
 		
 		
-//		String msg = "회원 가입 실패";
-//		if (result > 0) {
-//			msg = "회원가입 성공";
-//		}
-//		
-//		String path = "/";
-//		mv.addObject("msg", msg);
-//		mv.addObject("path", path);
-//		mv.setViewName("common/common_result");
-//		
+		String msg = "회원 가입 실패";
+		if (result > 0) {
+			msg = "회원가입 성공";
+		}
+		
+		String path = "/index";
+		mv.addObject("msg", msg);
+		mv.addObject("path", path);
+		mv.setViewName("common/common_result");
+		
 		return mv;
 	}
 	
@@ -126,7 +126,7 @@ public class MemberController {
 			msg = "삭제 성공";
 		}
 		mv.addObject("msg", msg);
-		mv.addObject("path", "/index");
+		mv.addObject("path", "../");
 		session.invalidate();
 		mv.setViewName("common/common_result");
 		

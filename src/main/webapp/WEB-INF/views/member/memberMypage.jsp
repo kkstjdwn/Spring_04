@@ -33,8 +33,13 @@
       <label for="gender">Gender</label>
       <input type="text" class="form-control" id="gender" name="gender" readonly="readonly" value="${member.gender }">
     </div>
+    <div class="form-group">
+      <label for="file">file</label>
+      <img src="../resources/upload/member/${member.filename }" id="file" name="file">
+      <input type="text" class="form-control" id="originalname" name="originalname" readonly="readonly" value="${member.originalname }">
+    </div>
     <a href="memberUpdate" type="button" class="btn btn-warning" >수정</a>
-    <a id="mem_del" type="button" class="btn btn-danger">삭제</a>
+    <a id="mem_del" type="button" class="btn btn-danger">탈퇴</a>
   </form>
   
   <script type="text/javascript">

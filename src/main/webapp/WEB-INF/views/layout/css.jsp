@@ -87,7 +87,10 @@
 	#btn_ser{
 	float: left;}
 
-
+	#originalname{
+	width: 100%;
+	height: auto;
+	}
 
 	
 	
