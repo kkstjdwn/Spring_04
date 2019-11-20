@@ -48,7 +48,12 @@ public class BoardNoticeService implements BoardService {
 		String realPath = session.getServletContext().getRealPath("resources/upload/notice");
 		System.out.println(realPath);
 		
+		int num = noticeDAO.getNum();
+		
 		NoticeFilesVO filesVO = new NoticeFilesVO();
+		filesVO.setNum(num);
+		boardVO.setNum(num);
+		
 		int result = noticeDAO.boardInsert(boardVO);
 		
 		System.out.println(boardVO.getNum());

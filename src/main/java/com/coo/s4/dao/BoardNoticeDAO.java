@@ -51,4 +51,8 @@ public class BoardNoticeDAO implements BoardDAO{
 		return sqlSession.selectOne(NAMESPACE+"boardCount",pager);
 	}
 	
+	public int getNum() throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"getNum");
+	}
+	
 }
