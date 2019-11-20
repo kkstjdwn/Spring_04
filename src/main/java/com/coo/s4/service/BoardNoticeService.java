@@ -41,14 +41,12 @@ public class BoardNoticeService implements BoardService {
 	@Override
 	public BoardVO boardSelect(BoardVO boardVO) throws Exception {
 		// TODO Auto-generated method stub
-		boardVO= noticeDAO.boardSelect(boardVO);
+		//boardVO= noticeDAO.boardSelect(boardVO);
+		//BoardNoticeVO noticeVO = (BoardNoticeVO)boardVO;
+		//List<NoticeFilesVO> list = noticeFilesDAO.fileList(boardVO);
+		//noticeVO.setFiles(list);
 		
-		BoardNoticeVO noticeVO = (BoardNoticeVO)boardVO;
-		List<NoticeFilesVO> list = noticeFilesDAO.fileList(boardVO);
-		
-		noticeVO.setFiles(list);
-		
-		return noticeVO;
+		return noticeDAO.boardSelect(boardVO);
 	}
 
 	@Override

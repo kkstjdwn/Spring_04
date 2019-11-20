@@ -4,6 +4,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,6 +22,8 @@ public class QnAController {
 	
 	@Inject
 	private BoardQnaService service;
+	
+	private int number=0;
 	
 	@RequestMapping("qnaList")
 	public ModelAndView boardList(Pager pager) throws Exception {
@@ -147,7 +150,21 @@ public class QnAController {
 		
 	}
 	
+	@GetMapping("qnaAddFile")
+	public ModelAndView noticeAddFile( )throws Exception{
+		ModelAndView mv = new ModelAndView();
+		number++;
+		mv.addObject("num", number);
+		mv.setViewName("common/files");
+			
+		
+		return mv;
+	}
 	
+	@GetMapping("qnaReset")
+	public void noticeReset( )throws Exception{
+		number = 0;
+	}
 	
 	
 	

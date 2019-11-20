@@ -24,7 +24,7 @@
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="title">WRITER</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" id="writer" name="writer" value="">
+					<input type="text" class="form-control" id="writer" name="writer" readonly="readonly" value="${member.id }">
 				</div>
 			</div>
 			<div class="form-group">
@@ -59,7 +59,7 @@
 	
 	$("#add_file").click(function() {
 			if (number < 4) {
-		$.get("noticeAddFile", function(data) {	
+		$.get("${board}AddFile", function(data) {	
 			$("#files").append(data);
 		});
 				number++;
