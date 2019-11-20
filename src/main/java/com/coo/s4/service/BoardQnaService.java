@@ -9,8 +9,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.coo.s4.dao.BoardQnaDAO;
+import com.coo.s4.dao.QnaFilesDAO;
 import com.coo.s4.model.BoardQnaVO;
 import com.coo.s4.model.BoardVO;
+import com.coo.s4.model.QnaFilesVO;
+import com.coo.s4.util.FileSaver;
 import com.coo.s4.util.Pager;
 
 @Service
@@ -18,7 +21,12 @@ public class BoardQnaService implements BoardService {
 	
 	@Inject
 	private BoardQnaDAO qnaDAO;
+	@Inject
+	private QnaFilesDAO fileDAO;
+	@Inject
+	private FileSaver saver;
 
+	
 	@Override
 	public List<BoardVO> boardList(Pager pager) throws Exception {
 		pager.rowMake();
@@ -29,13 +37,25 @@ public class BoardQnaService implements BoardService {
 	@Override
 	public BoardVO boardSelect(BoardVO boardVO) throws Exception {
 		// TODO Auto-generated method stub
-		return qnaDAO.boardSelect(boardVO);
+		boardVO = qnaDAO.boardSelect(boardVO);
+		BoardQnaVO qnaVO = (BoardQnaVO)boardVO;
+		qnaVO.setFiles(fileDAO.fileList(boardVO));
+		return qnaVO;
 	}
 
 	@Override
 	public int boardInsert(BoardVO boardVO,HttpSession session,MultipartFile[] file) throws Exception {
+		QnaFilesVO filesVO = new QnaFilesVO();
+		int result =  qnaDAO.boardInsert(boardVO);
+		filesVO.setNum(boardVO.getNum());
+		for (MultipartFile multipartFile : file) {
+			
+			filesVO.setFname(saver.save(session.getServletContext().getRealPath("resources/upload/qna"), multipartFile));
+			filesVO.setOname(multipartFile.getOriginalFilename());
+			result = fileDAO.fileInsert(filesVO);
+		}
 		
-		return qnaDAO.boardInsert(boardVO);
+		return result;
 	}
 
 	@Override

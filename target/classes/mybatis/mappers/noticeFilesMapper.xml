@@ -6,10 +6,13 @@
   <mapper namespace="noticeFilesMapper">
   
   	<insert id="fileInsert" parameterType="NoticeFilesVO">
-  		insert into noticefiles value(file_seq.nextval, #{num}, #{fname}, #{oname})
+  		insert into noticefiles values(file_seq.nextval, #{num}, #{fname}, #{oname})
   	
   	</insert>
-  
+  	
+  	<select id="fileList" parameterType="NoticeVO" resultType="NoticeFilesVO">
+  		select * from noticefiles where num = #{num }
+  	</select>
   
   
   </mapper>

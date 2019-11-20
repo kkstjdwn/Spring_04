@@ -37,6 +37,11 @@
       <label for="gender">Gender</label>
       <input type="text" class="form-control" id="gender" name="gender" readonly="readonly" value="${member.gender }">
     </div>
+    <div class="form-group">
+      <label for="file">file</label>
+      <img src="../resources/upload/member/${member.filename }">
+      <input type="file" class="form-control" id="file" name="file">
+    </div>
     <button type="submit" class="btn btn-warning" >수정</button>
     <button type="button" class="btn btn-danger">삭제</button>
   </form>

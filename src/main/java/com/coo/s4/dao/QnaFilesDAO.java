@@ -6,24 +6,25 @@ import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
+
+
 import com.coo.s4.model.BoardVO;
-import com.coo.s4.model.NoticeFilesVO;
+import com.coo.s4.model.QnaFilesVO;
 
 @Repository
-public class NoticeFilesDAO {
+public class QnaFilesDAO {
 	
 	@Inject
 	private SqlSession sqlSession;
-	private static final String NAMESPACE = "noticeFilesMapper.";
+	private static final String NAMESPACE = "qnaFilesMapper.";
 	
-	public int fileInsert(NoticeFilesVO vo) throws Exception{
-		return sqlSession.insert(NAMESPACE+"fileInsert", vo);
+	public int fileInsert(QnaFilesVO filesVO) throws Exception{
+		return sqlSession.insert(NAMESPACE+"fileInsert",filesVO);
 	}
 	
-	public List<NoticeFilesVO> fileList(BoardVO vo) throws Exception{
+	public List<QnaFilesVO> fileList(BoardVO vo) throws Exception{
 		return sqlSession.selectList(NAMESPACE+"fileList",vo);
+		
 	}
-	
-	
-	
+
 }

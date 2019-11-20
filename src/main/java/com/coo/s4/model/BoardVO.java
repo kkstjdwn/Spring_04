@@ -2,8 +2,6 @@ package com.coo.s4.model;
 
 import java.sql.Date;
 
-import org.springframework.web.multipart.MultipartFile;
-
 public class BoardVO {
 	private Integer num;
 	private String title;

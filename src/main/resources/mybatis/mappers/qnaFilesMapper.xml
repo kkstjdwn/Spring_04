@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--mybatis 첫 mapper 만들때 -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="qnaFilesMapper">
+  
+  <insert id="fileInsert" parameterType="QnaFilesVO">
+  	
+  	insert into qnafiles values(file_seq.nextval,#{num }, #{fname}, #{oname} )
+  
+  </insert>
+  
+  <select id="fileList" parameterType="QnaVO" resultType="QnaFilesVO">
+  	
+  	select * from qnafiles where num = #{num }
+  	
+  </select>
+  
+  
+  </mapper>
+  

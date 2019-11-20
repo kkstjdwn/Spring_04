@@ -34,8 +34,11 @@
   	</select>
   
     	<insert id="boardInsert"  parameterType="QnaVO" >
+    	<selectKey order="BEFORE" keyProperty="num" resultType="Integer">
+    		select not_seq.nextval from dual
+    	</selectKey>
   		
-  		insert into qna values(not_seq.nextval,#{title},#{writer},#{contents},sysdate,0,not_seq.currval,0,0)
+  		insert into qna values(#{num},#{title},#{writer},#{contents},sysdate,0,not_seq.currval,0,0)
   	
   	</insert>
   	

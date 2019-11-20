@@ -59,6 +59,11 @@
 						name="reg_date" readonly="readonly" value="${vo.reg_date }">
 				</div>
 			</div>
+			<div  class="form-group">
+			<c:forEach items="${vo.files }" var="file">
+				<a href="../resources/upload/${board }/${file.fname }">${file.oname }</a>
+			</c:forEach>
+			</div>
 		</form>
 
 		<!--**********************버튼그룹 -->

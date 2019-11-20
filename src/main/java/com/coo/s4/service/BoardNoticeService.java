@@ -5,12 +5,13 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.stereotype.Component;
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.coo.s4.dao.BoardNoticeDAO;
 import com.coo.s4.dao.NoticeFilesDAO;
+import com.coo.s4.model.BoardNoticeVO;
 import com.coo.s4.model.BoardVO;
 import com.coo.s4.model.NoticeFilesVO;
 import com.coo.s4.util.FileSaver;
@@ -40,24 +41,29 @@ public class BoardNoticeService implements BoardService {
 	@Override
 	public BoardVO boardSelect(BoardVO boardVO) throws Exception {
 		// TODO Auto-generated method stub
-		return noticeDAO.boardSelect(boardVO);
+		boardVO= noticeDAO.boardSelect(boardVO);
+		
+		BoardNoticeVO noticeVO = (BoardNoticeVO)boardVO;
+		List<NoticeFilesVO> list = noticeFilesDAO.fileList(boardVO);
+		
+		noticeVO.setFiles(list);
+		
+		return noticeVO;
 	}
 
 	@Override
 	public int boardInsert(BoardVO boardVO,HttpSession session, MultipartFile[] file) throws Exception {
 		String realPath = session.getServletContext().getRealPath("resources/upload/notice");
-		System.out.println(realPath);
-		
 		NoticeFilesVO filesVO = new NoticeFilesVO();
 		int result = noticeDAO.boardInsert(boardVO);
+		filesVO.setNum(boardVO.getNum());
 		
-		System.out.println(boardVO.getNum());
-		
-//		for (MultipartFile multipartFile : file) {
-//			
-//			filesVO.setFname(saver.save(realPath, multipartFile));
-//			filesVO.setOname(multipartFile.getOriginalFilename());			
-//		}
+		for (MultipartFile multipartFile : file) {
+			
+			filesVO.setFname(saver.save(realPath, multipartFile));
+			filesVO.setOname(multipartFile.getOriginalFilename());
+			result = noticeFilesDAO.fileInsert(filesVO);
+		}
 		
 		
 		
