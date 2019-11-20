@@ -7,9 +7,12 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.coo.s4.dao.BoardNoticeDAO;
+import com.coo.s4.dao.NoticeFilesDAO;
 import com.coo.s4.model.BoardVO;
+import com.coo.s4.model.NoticeFilesVO;
 import com.coo.s4.util.FileSaver;
 import com.coo.s4.util.Pager;
 
@@ -18,6 +21,12 @@ public class BoardNoticeService implements BoardService {
 	
 	@Inject
 	private BoardNoticeDAO noticeDAO;
+	
+	@Inject
+	private FileSaver saver;
+	
+	@Inject
+	private NoticeFilesDAO noticeFilesDAO;
 	
 		
 	@Override
@@ -35,13 +44,24 @@ public class BoardNoticeService implements BoardService {
 	}
 
 	@Override
-	public int boardInsert(BoardVO boardVO,HttpSession session) throws Exception {
+	public int boardInsert(BoardVO boardVO,HttpSession session, MultipartFile[] file) throws Exception {
 		String realPath = session.getServletContext().getRealPath("resources/upload/notice");
 		System.out.println(realPath);
-		FileSaver saver = new FileSaver();
-		boardVO.setFilename(saver.save(realPath, boardVO.getFile()));
-		boardVO.setOriginalname(boardVO.getFile().getOriginalFilename());
-		return 0;//noticeDAO.boardInsert(boardVO);
+		
+		NoticeFilesVO filesVO = new NoticeFilesVO();
+		int result = noticeDAO.boardInsert(boardVO);
+		
+		System.out.println(boardVO.getNum());
+		
+//		for (MultipartFile multipartFile : file) {
+//			
+//			filesVO.setFname(saver.save(realPath, multipartFile));
+//			filesVO.setOname(multipartFile.getOriginalFilename());			
+//		}
+		
+		
+		
+		return result;
 	}
 
 	@Override

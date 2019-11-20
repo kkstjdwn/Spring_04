@@ -5,11 +5,13 @@ import java.io.FileOutputStream;
 import java.util.Calendar;
 import java.util.UUID;
 
+import org.springframework.stereotype.Component;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-
+@Component
 public class FileSaver {
+	
 
 	// 1.Spring 에서 제공하는 FileCopyUtils 클래스의 copy메서드 사용
 	public String save(String realPath, MultipartFile multipartFile) throws Exception {

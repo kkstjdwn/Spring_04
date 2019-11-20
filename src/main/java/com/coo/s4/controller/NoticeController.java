@@ -1,5 +1,7 @@
 package com.coo.s4.controller;
 
+import java.util.ArrayList;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
@@ -8,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.coo.s4.model.BoardNoticeVO;
@@ -45,10 +48,14 @@ public class NoticeController {
 	}
 	
 	@RequestMapping(value = "noticeWrite",method = RequestMethod.POST)
-	public ModelAndView boardWrite(BoardNoticeVO noticeVO, HttpSession session) throws Exception{
+	public ModelAndView boardWrite(BoardNoticeVO noticeVO, HttpSession session,MultipartFile [] file) throws Exception{
 		ModelAndView mv = new ModelAndView();
 		session.getServletContext().getRealPath("resources/upload/notice");
-		int result = service.boardInsert(noticeVO,session);
+		
+		for (int i = 0; i < file.length; i++) {
+			System.out.println(file[i].getOriginalFilename());
+		}
+		int result = service.boardInsert(noticeVO,session,file);
 		
 		String msg = "공지 작성 실패";
 		if (result>0) {

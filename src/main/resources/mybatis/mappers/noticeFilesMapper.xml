@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--mybatis 첫 mapper 만들때 -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="noticeFilesMapper">
+  
+  	<insert id="fileInsert" parameterType="NoticeFilesVO">
+  		insert into noticefiles value(file_seq.nextval, #{num}, #{fname}, #{oname})
+  	
+  	</insert>
+  
+  
+  
+  </mapper>
+  

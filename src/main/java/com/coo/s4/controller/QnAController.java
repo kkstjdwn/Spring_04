@@ -43,10 +43,10 @@ public class QnAController {
 	}
 	
 	@RequestMapping(value = "qnaWrite",method = RequestMethod.POST)
-	public ModelAndView boardInsert(BoardQnaVO qnAVO,HttpSession session) throws Exception{
+	public ModelAndView boardInsert(BoardQnaVO qnAVO,HttpSession session,MultipartFile [] file) throws Exception{
 		ModelAndView mv = new ModelAndView();
 		
-		int result = service.boardInsert(qnAVO,session);
+		int result = service.boardInsert(qnAVO,session,file);
 		String msg = "질문 작성 실패";
 		if (result>0) {
 			msg = "질문 작성 성공";
