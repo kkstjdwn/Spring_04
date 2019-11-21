@@ -23,7 +23,6 @@
 	h2{
 	margin: auto;
 	text-align: center;
-	text-transform: uppercase;
 	}
 	h3{
 	margin: auto;

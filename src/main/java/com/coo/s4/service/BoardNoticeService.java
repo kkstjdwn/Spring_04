@@ -56,11 +56,13 @@ public class BoardNoticeService implements BoardService {
 		int result = noticeDAO.boardInsert(boardVO);
 		filesVO.setNum(boardVO.getNum());
 		
+		
 		for (MultipartFile multipartFile : file) {
-			
-			filesVO.setFname(saver.save(realPath, multipartFile));
-			filesVO.setOname(multipartFile.getOriginalFilename());
-			result = noticeFilesDAO.fileInsert(filesVO);
+			if (multipartFile.getSize() != 0) {				
+				filesVO.setFname(saver.save(realPath, multipartFile));
+				filesVO.setOname(multipartFile.getOriginalFilename());
+				result = noticeFilesDAO.fileInsert(filesVO);
+			}
 		}
 		
 		
@@ -69,8 +71,18 @@ public class BoardNoticeService implements BoardService {
 	}
 
 	@Override
-	public int boardUpdate(BoardVO boardVO) throws Exception {
+	public int boardUpdate(BoardVO boardVO,HttpSession session,MultipartFile[] file) throws Exception {
 		// TODO Auto-generated method stub
+		String realPath = session.getServletContext().getRealPath("resources/upload/notice");
+		NoticeFilesVO filesVO = new NoticeFilesVO();
+		filesVO.setNum(boardVO.getNum());
+		for (MultipartFile multipartFile : file) {
+			if (multipartFile.getSize() != 0) {			
+			filesVO.setFname(saver.save(realPath, multipartFile));
+			filesVO.setOname(multipartFile.getOriginalFilename());
+			noticeFilesDAO.fileInsert(filesVO);
+			}
+		}
 		return noticeDAO.boardUpdate(boardVO);
 	}
 
@@ -78,6 +90,15 @@ public class BoardNoticeService implements BoardService {
 	public int boardDelete(BoardVO boardVO) throws Exception {
 		// TODO Auto-generated method stub
 		return noticeDAO.boardDelete(boardVO);
+	}
+	
+	public int fileDelete(NoticeFilesVO vo) throws Exception{
+		return noticeFilesDAO.fileDelete(vo);
+	}
+	
+	
+	public NoticeFilesVO fileSelect(NoticeFilesVO filesVO) throws Exception{
+		return noticeFilesDAO.fileSelect(filesVO);
 	}
 
 }

@@ -12,6 +12,10 @@
   	
   </insert>
   
+
+  
+  
+  
   <select id="memberLogin" resultType="MemberVO" parameterType="MemberVO">
   
   	select id, name, email , birth, gender,filename, originalname from member where id=#{id} and pw=#{pw}

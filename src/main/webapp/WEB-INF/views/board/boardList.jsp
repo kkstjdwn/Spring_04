@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +13,7 @@
 <c:import url="../layout/nav.jsp"/>
 <c:import url="../layout/bootStrap.jsp"/>
 <div class="container">
-		<h2 id="h2">${board } LIST</h2>
+		<h2>${fn:toUpperCase(board) } LIST</h2>
 		<table class="table table-hover">
 			<thead>
 				<tr>

@@ -2,14 +2,18 @@ package com.coo.s4.controller;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
+
+import org.springframework.dao.support.DaoSupport;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.coo.s4.model.BoardNoticeVO;
+import com.coo.s4.model.NoticeFilesVO;
 import com.coo.s4.service.BoardNoticeService;
 import com.coo.s4.util.Pager;
 
@@ -47,10 +51,11 @@ public class NoticeController {
 	public ModelAndView boardWrite(BoardNoticeVO noticeVO, HttpSession session,MultipartFile [] file) throws Exception{
 		ModelAndView mv = new ModelAndView();
 		session.getServletContext().getRealPath("resources/upload/notice");
+				
+			for (int i = 0; i < file.length; i++) {
+				System.out.println(file[i].getOriginalFilename());
+			}
 		
-		for (int i = 0; i < file.length; i++) {
-			System.out.println(file[i].getOriginalFilename());
-		}
 		int result = service.boardInsert(noticeVO,session,file);
 		
 		String msg = "공지 작성 실패";
@@ -87,14 +92,15 @@ public class NoticeController {
 	}
 	
 	@RequestMapping(value = "noticeUpdate",method = RequestMethod.POST)
-	public ModelAndView boardUpdateResult(BoardNoticeVO noticeVO)throws Exception{
+	public ModelAndView boardUpdateResult(BoardNoticeVO noticeVO, HttpSession session, MultipartFile[] file)throws Exception{
 		ModelAndView mv = new ModelAndView();
 		
-		int result = service.boardUpdate(noticeVO);
+		int result = service.boardUpdate(noticeVO,session,file);
 		String msg = "수정 실패";
 		if (result>0) {
 			msg = "수정 성공";
 		}
+		
 		String path = "noticeList";
 		mv.addObject("msg", msg);
 		mv.addObject("path", path);
@@ -134,11 +140,24 @@ public class NoticeController {
 		
 		return mv;
 	}
-	
-	@GetMapping("noticeReset")
-	public void noticeReset( )throws Exception{
-		number = 0;
-	}
 
+	@PostMapping("noticeFileDelete")
+	public ModelAndView noticeFileDelete(NoticeFilesVO vo) throws Exception{
+		int result = service.fileDelete(vo);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("result", result);
+		mv.setViewName("common/common_ajax_result");
+		return mv;
+	}
 	
+	@GetMapping("fileDown")
+	public ModelAndView fileDown(NoticeFilesVO filesVO) throws Exception{
+		filesVO = service.fileSelect(filesVO);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("file", filesVO);
+		mv.addObject("board", board);
+		mv.setViewName("fileDown");
+		
+		return mv;
+	}
 }

@@ -59,7 +59,7 @@ public class BoardQnaService implements BoardService {
 	}
 
 	@Override
-	public int boardUpdate(BoardVO boardVO) throws Exception {
+	public int boardUpdate(BoardVO boardVO,HttpSession session,MultipartFile[] file) throws Exception {
 		// TODO Auto-generated method stub
 		return qnaDAO.boardUpdate(boardVO);
 	}

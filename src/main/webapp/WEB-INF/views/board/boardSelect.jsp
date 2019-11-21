@@ -61,25 +61,30 @@
 			</div>
 			<div  class="form-group">
 			<c:forEach items="${vo.files }" var="file">
-				<a href="../resources/upload/${board }/${file.fname }">${file.oname }</a>
+				<a href="fileDown?fnum=${file.fnum }">${file.oname }</a>
 			</c:forEach>
 			</div>
 		</form>
-
+		
 		<!--**********************버튼그룹 -->
 
 		<div id="bt_gp">
+			
+			<a href="${board}List" class="btn btn-primary btn_gp">목록</a>
+			<c:if test="${!empty member }">
+			<c:if test="${member.id eq vo.writer}">
+			<a href="${board}Update?num=${vo.num }" class="btn btn-warning">수정</a>
+			<button class="btn btn-danger" id="delete">삭제</button>
+			</c:if>
 			<c:if test="${board ne 'notice'}">
 				<a href="${board}Reply?num=${vo.num }" class="btn btn-success"
 					id="btn_right">ANSER</a>
 			</c:if>
-			<a href="${board}List" class="btn btn-primary btn_gp">목록</a> <a
-				href="${board}Update?num=${vo.num }" class="btn btn-warning">수정</a>
-			<button class="btn btn-danger" id="delete">삭제</button>
-			
+			</c:if>
 
 		</div>
 	</div>
+
 	<script type="text/javascript">
 		$("#delete").click(function() {
 			if (confirm("삭제하시겠습니까?")) {

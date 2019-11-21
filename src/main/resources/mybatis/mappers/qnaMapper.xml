@@ -53,12 +53,13 @@
   	<result property="ref" column="ref"/>
   	<result property="step" column="step"/>
   	<result property="depth" column="depth"/>
-  	<collection property="files" javaType="java.util.List" ofType="QnaFilesVO">
+  	<collection property="files" javaType="java.util.List" ofType="QnaFilesVO" resultMap="filesResult"/>
+  	</resultMap>
+  	
+  	<resultMap type="QnaFilesVO" id="filesResult">
   		<id property="fnum" column="fnum"/>
   		<result property="fname" column="fname"/>
   		<result property="oname" column="oname"/>
-  	</collection>
-  	
   	</resultMap>
   	
   	

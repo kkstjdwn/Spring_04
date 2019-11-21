@@ -14,6 +14,15 @@
   		select * from noticefiles where num = #{num }
   	</select>
   
-  
+  	<delete id="fileDelete" parameterType="NoticeFilesVO">
+  		
+  		delete noticefiles where fnum = #{fnum}
+  	
+  	</delete>
+  	
+  	
+  	<select id="fileSelect" parameterType="NoticeFilesVO" resultType="NoticeFilesVO">
+  		select * from noticefiles where fnum = #{fnum }
+  	</select>
   </mapper>
   

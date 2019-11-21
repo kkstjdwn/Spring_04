@@ -7,6 +7,6 @@
 			name="file">
 	</div>
 	<div class="col-sm-1">
-	<input type="button" class="form-control btn btn-danger del_file" value="DEL" id="d">
+	<input type="button" class="form-control btn btn-danger del_file" value="삭제">
 	</div>
 </div>

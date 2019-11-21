@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,8 +13,9 @@
 	<c:import url="../layout/nav.jsp" />
 	<c:import url="../layout/bootStrap.jsp" />
 	<div class="container">
-		<h2>${board }UPDATE</h2>
-		<form class="form-horizontal" action="${board}Update" method="post">
+		<h2>${fn:toUpperCase(board) } UPDATE</h2>
+		
+		<form class="form-horizontal" action="${board}Update" method="post" enctype="multipart/form-data">
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="title">TITLE</label>
 				<div class="col-sm-10">
@@ -34,7 +36,22 @@
 					<textarea class="form-control" id="contents" name="contents">${vo.contents }</textarea>
 				</div>
 			</div>
-			
+				<div id="files">
+			<c:forEach items="${vo.files }" var="file">
+				<div class="form-group" id="f${file.fnum }"> 
+					<label class="control-label col-sm-2" for="title">FILES</label>
+					<div class="col-sm-9">
+						<span class="form-control" name="file">${file.oname}</span>
+						<input type="file" class="form-control">
+						<input type="hidden" class="size" id="${vo.files.size() }">
+					</div>
+					<div class="col-sm-1">
+						<input type="button" class="form-control btn btn-danger del" value="삭제" id="${file.fnum }">
+						<input type="button" class="form-control btn btn-warning" value="수정">
+					</div>
+				</div>
+			</c:forEach>
+				</div>
 			<!--***********************히든그룹 -->
 			<input type="hidden" class="form-control" id="num" name="num"
 				readonly="readonly" value="${vo.num }"> <input type="hidden"
@@ -52,7 +69,9 @@
 
 
 			<!--**********************버튼그룹 -->
+			<input type="button" class="btn btn-primary btn_gp" value="ADD FILE" id="add_file">
 			<button type="submit" class="btn btn-warning" id="btn_right">수정</button>
+			
 		</form>
 
 
@@ -60,6 +79,51 @@
 
 
 	</div>
+<script type="text/javascript">
+var count = 0;
+// if ($(".size").attr("id") != null) {
+// 	count = $(".size").attr("id");
+// }
 
+
+ count = ${fn:length(vo.files)};
+
+$("#add_file").click(function() {
+		if (count < 5) {
+	$.get("${board}AddFile", function(data) {	
+		$("#files").append(data);
+	});
+			count++;
+		
+		
+		}else{
+			alert("그만해");
+			
+		}
+	
+});
+	
+	$(".del").click(function() {
+		var fnum = $(this).attr("id");
+		if (confirm("삭제하시겠습니까?")) {
+			
+		
+		$.post("${board }FileDelete",{fnum : fnum}, function(data) {
+			if (data > 0) {
+				alert("제거");
+				$("#f"+fnum).remove();
+				count--;
+			}else{
+				alert("실패");
+			}
+		});
+		}
+	});
+
+	$("#files").on("click",".del_file", function() {
+		$(this).parent().parent().remove();
+		count--;
+	});
+</script>
 </body>
 </html>

@@ -42,7 +42,7 @@
   	<result property="title" column="title"/>
   	<result property="writer" column="writer"/>
   	<result property="contents" column="contents"/>
-  	<result property="reg_date" column="reg_data"/>
+  	<result property="reg_date" column="reg_date"/>
   	<result property="hit" column="hit"/>
   	<collection property="files" javaType="java.util.List" ofType="NoticeFilesVO">
   		<id property="fnum" column="fnum"/>
@@ -55,7 +55,7 @@
   
   <select id="boardSelect" resultMap="boardFile"  parameterType="NoticeVO">
   	
-  	select n.*,f.num,f.fname,f.oname
+  	select n.*,f.fnum,f.fname,f.oname
 	from notice n full outer join noticefiles f on n.num = f.num
 	where n.num = #{num }
   

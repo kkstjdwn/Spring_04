@@ -21,7 +21,7 @@ public interface BoardService {
 	public int boardInsert(BoardVO boardVO,HttpSession session,MultipartFile [] file) throws Exception;
 	
 	//update
-	public int boardUpdate(BoardVO boardVO) throws Exception;
+	public int boardUpdate(BoardVO boardVO,HttpSession session,MultipartFile[] file) throws Exception;
 	
 	//delete
 	public int boardDelete(BoardVO boardVO) throws Exception;

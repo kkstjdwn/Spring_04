@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<c:if test="${!empty member }">
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +14,7 @@
 <c:import url="../layout/nav.jsp"  />
 <c:import url="../layout/bootStrap.jsp"/>
 	<div class="container">
-		<h2>${board } WRITE</h2>
+		<h2>${fn:toUpperCase(board) } WRITE</h2>
 		
 		<form class="form-horizontal" action="${board}Write" method="post" enctype="multipart/form-data">
 			<div class="form-group">
@@ -32,6 +34,7 @@
 				<div class="col-sm-10">
 					<textarea class="form-control" id="contents" name="contents"></textarea>
 				</div>
+				
 			</div>
 		<div id = "files" >
 			<div class="form-group"> 
@@ -40,7 +43,7 @@
 				<input type="file" class="form-control" id="file" name="file">
 				</div>
 				<div class="col-sm-1">
-				<input type="button" class="form-control btn btn-danger del_file" value="DEL">
+				<input type="button" class="form-control btn btn-danger del_file" value="삭제">
 				</div>
 			</div>
 		</div>
@@ -54,15 +57,15 @@
 	</div>
 	
 	<script type="text/javascript">
-	var number = 0;
+	var count = 0;
 
 	
 	$("#add_file").click(function() {
-			if (number < 4) {
+			if (count < 4) {
 		$.get("${board}AddFile", function(data) {	
 			$("#files").append(data);
 		});
-				number++;
+				count++;
 			
 			
 			}else{
@@ -73,10 +76,9 @@
 		
 	});
 	
-	var remove = $()
 	$("#files").on("click", ".del_file",function() {
 		$(this).parent().parent().remove();
-		number--;
+		count--;
 	});
 
 // 	$(".del_file").on("click",'input', function() {
@@ -88,3 +90,4 @@
 	</script>
 </body>
 </html>
+</c:if>
