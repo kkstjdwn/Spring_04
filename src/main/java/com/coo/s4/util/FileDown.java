@@ -11,7 +11,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.servlet.view.AbstractView;
 
+import com.coo.s4.model.FileVO;
 import com.coo.s4.model.NoticeFilesVO;
+import com.coo.s4.model.QnaFilesVO;
 
 @Component
 public class FileDown extends AbstractView{
@@ -20,8 +22,8 @@ public class FileDown extends AbstractView{
 	protected void renderMergedOutputModel(Map<String, Object> model, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
-		NoticeFilesVO filesVO = (NoticeFilesVO)model.get("file");
 		String board = (String)model.get("board");
+		FileVO filesVO = (FileVO)model.get("file");
 		String realPath = request.getSession().getServletContext().getRealPath("resources/upload/"+board);
 		File file = new File(realPath, filesVO.getFname());
 		

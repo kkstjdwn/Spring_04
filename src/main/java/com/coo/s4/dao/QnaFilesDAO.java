@@ -26,5 +26,13 @@ public class QnaFilesDAO {
 		return sqlSession.selectList(NAMESPACE+"fileList",vo);
 		
 	}
+	
+	public int fileDelete(QnaFilesVO filesVO) throws Exception{
+		return sqlSession.delete(NAMESPACE+"fileDelete",filesVO);
+	}
+	
+	public QnaFilesVO fileSelect(QnaFilesVO filesVO) throws Exception{
+		return sqlSession.selectOne(NAMESPACE+"fileSelect",filesVO);
+	}
 
 }

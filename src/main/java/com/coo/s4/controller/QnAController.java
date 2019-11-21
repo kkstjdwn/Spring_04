@@ -5,12 +5,14 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.coo.s4.model.BoardQnaVO;
+import com.coo.s4.model.QnaFilesVO;
 import com.coo.s4.service.BoardQnaService;
 import com.coo.s4.util.Pager;
 
@@ -153,22 +155,31 @@ public class QnAController {
 	@GetMapping("qnaAddFile")
 	public ModelAndView noticeAddFile( )throws Exception{
 		ModelAndView mv = new ModelAndView();
-		number++;
-		mv.addObject("num", number);
 		mv.setViewName("common/files");
 			
 		
 		return mv;
 	}
 	
-	@GetMapping("qnaReset")
-	public void noticeReset( )throws Exception{
-		number = 0;
+	@PostMapping("qnaFileDelete")
+	public ModelAndView fileDelete(QnaFilesVO filesVO) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("result", service.fileDelete(filesVO));
+		mv.setViewName("common/common_ajax_result");
+		return mv;
 	}
 	
 	
-	
-	
+	@GetMapping("fileDown")
+	public ModelAndView fileDown(QnaFilesVO filesVO) throws Exception{
+		filesVO = service.fileSelect(filesVO);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("file", filesVO);
+		mv.addObject("board", board);
+		mv.setViewName("fileDown");
+		
+		return mv;
+	}
 	
 	
 	
