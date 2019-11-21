@@ -41,8 +41,8 @@
 				<div class="form-group" id="f${file.fnum }"> 
 					<label class="control-label col-sm-2" for="title">FILES</label>
 					<div class="col-sm-9">
-						<span class="form-control" name="file">${file.oname}</span>
-						<input type="file" class="form-control">
+						<span class="form-control" >${file.oname}</span>
+						<input type="file" class="form-control" name="file">
 						<input type="hidden" class="size" id="${vo.files.size() }">
 					</div>
 					<div class="col-sm-1">
