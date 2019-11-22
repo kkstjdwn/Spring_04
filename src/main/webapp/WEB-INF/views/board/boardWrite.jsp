@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<c:if test="${!empty member }">
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,6 +13,7 @@
 <body>
 <c:import url="../layout/nav.jsp"  />
 <c:import url="../layout/bootStrap.jsp"/>
+<c:import url="../layout/summerNote.jsp"/>
 	<div class="container">
 		<h2>${fn:toUpperCase(board) } WRITE</h2>
 		
@@ -80,14 +81,59 @@
 		$(this).parent().parent().remove();
 		count--;
 	});
+	
+	$("#contents").summernote({
+		height: 400,
+		callbacks :	{
+			onImageUpload : function(files, editor) {
+				uploadFile(files[0], this);
+			}, //oIU
+			
+			onMediaDelete : function(files, editor) {
+				deleteFile(files[0],this);
+			}//oMD
+			
+		}//callback
+	});
+	
+	function deleteFile(file, editor) {
+		var fileName = $(file).attr("src");
+		fileName = fileName.substring(fileName.lastIndexOf("/")+1);
+		$.ajax({
+			data : {
+				file: fileName
+				},
+			type : "POST",
+			url : "summerFileDelete",
+			success : function(result) {
+				console.log(result);
+			}
+			
+		});
+	}
+	
+	function uploadFile(file, editor) {
+		var formData = new FormData();
+		formData.append('file',file); //파라미터로 받음
+		$.ajax({
+			data : formData,
+			type : "POST",
+			url	: "summerFile",
+			enctype : "multipart/form-data",		//여기서부터
+			contentType	: false,
+			cache	: false,						//여기까진 그냥 써라
+			processData : false,
+			success	: function(data) {
+				data = data.trim();
+				data = '../resources/upload/summer/'+data;
+				$(editor).summernote('insertImage',data);
+			}
+			});
+	}
+	
 
-// 	$(".del_file").on("click",'input', function() {
-		
-// 		alert("띵");
-// 	});
 	
 	
 	</script>
 </body>
 </html>
-</c:if>

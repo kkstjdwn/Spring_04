@@ -11,9 +11,10 @@
 <body>
 <c:import url="../layout/nav.jsp"  />
 <c:import url="../layout/bootStrap.jsp"/>
+<c:import url="../layout/summerNote.jsp"/>
 	<div class="container">
 		<h2>ANSER WRITE</h2>
-		<form class="form-horizontal" action="${board }/${board}Reply" method="post" onsubmit=true>
+		<form class="form-horizontal" action="${board }/${board}Reply" method="post" enctype="multipart/form-data">
 		
 			<!--***********************히든그룹 -->
 			<input type="hidden" class="form-control" id="num" name="num" readonly="readonly" value="${vo.num }">
@@ -43,11 +44,53 @@
 					<textarea class="form-control" id="contents" name="contents"> [본문내용]  ${vo.contents } [본문내용] </textarea>
 				</div>
 			</div>
+			<div id = "files" >
+			<div class="form-group"> 
+				<label class="control-label col-sm-2" for="title">FILES</label>
+				<div class="col-sm-9">
+				<input type="file" class="form-control" id="file" name="file">
+				</div>
+				<div class="col-sm-1">
+				<input type="button" class="form-control btn btn-danger del_file" value="삭제">
+				</div>
+			</div>
+		</div>
 		<!--**********************버튼그룹 -->
+		<input type="button" class="btn btn-primary btn_gp" value="ADD FILE" id="add_file">
 		<button type="submit" class="btn btn-info" id="btn_right">작성</button>
 		</form>
 
 
 	</div>
+	
+	<script type="text/javascript">
+		var count = 0;
+
+		
+		$("#add_file").click(function() {
+				if (count < 4) {
+			$.get("${board}AddFile", function(data) {	
+				$("#files").append(data);
+			});
+					count++;
+				
+				
+				}else{
+					$.get("noticeReset");
+					alert("그만해");
+					
+				}
+			
+		});
+		
+		$("#files").on("click", ".del_file",function() {
+			$(this).parent().parent().remove();
+			count--;
+		});
+		
+		$("#contents").summernote({
+			height: 400
+		});
+	</script>
 </body>
 </html>

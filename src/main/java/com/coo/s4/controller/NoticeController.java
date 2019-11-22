@@ -2,8 +2,6 @@ package com.coo.s4.controller;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
-
-import org.springframework.dao.support.DaoSupport;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,8 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.coo.s4.model.BoardNoticeVO;
+import com.coo.s4.model.BoardVO;
 import com.coo.s4.model.NoticeFilesVO;
 import com.coo.s4.service.BoardNoticeService;
 import com.coo.s4.util.Pager;
@@ -48,7 +45,7 @@ public class NoticeController {
 	}
 	
 	@RequestMapping(value = "noticeWrite",method = RequestMethod.POST)
-	public ModelAndView boardWrite(BoardNoticeVO noticeVO, HttpSession session,MultipartFile [] file) throws Exception{
+	public ModelAndView boardWrite(BoardVO noticeVO, HttpSession session,MultipartFile [] file) throws Exception{
 		ModelAndView mv = new ModelAndView();
 		session.getServletContext().getRealPath("resources/upload/notice");
 				
@@ -72,7 +69,7 @@ public class NoticeController {
 	}
 	
 	@RequestMapping("noticeSelect")
-	public ModelAndView boardSelect(BoardNoticeVO noticeVO) throws Exception {
+	public ModelAndView boardSelect(BoardVO noticeVO) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("vo", service.boardSelect(noticeVO));
 		mv.addObject("board", board);
@@ -82,7 +79,7 @@ public class NoticeController {
 	}
 	
 	@RequestMapping(value = "noticeUpdate",method = RequestMethod.GET)
-	public ModelAndView boardUpdate(BoardNoticeVO noticeVO) throws Exception{
+	public ModelAndView boardUpdate(BoardVO noticeVO) throws Exception{
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("vo", service.boardSelect(noticeVO));
 		mv.addObject("board", board);
@@ -92,7 +89,7 @@ public class NoticeController {
 	}
 	
 	@RequestMapping(value = "noticeUpdate",method = RequestMethod.POST)
-	public ModelAndView boardUpdateResult(BoardNoticeVO noticeVO, HttpSession session, MultipartFile[] file)throws Exception{
+	public ModelAndView boardUpdateResult(BoardVO noticeVO, HttpSession session, MultipartFile[] file)throws Exception{
 		ModelAndView mv = new ModelAndView();
 		
 		int result = service.boardUpdate(noticeVO,session,file);
@@ -112,7 +109,7 @@ public class NoticeController {
 	
 	
 	@RequestMapping(value = "noticeDelete")
-	public ModelAndView boardDelete(BoardNoticeVO noticeVO) throws Exception{
+	public ModelAndView boardDelete(BoardVO noticeVO) throws Exception{
 		ModelAndView mv = new ModelAndView();
 		int result = service.boardDelete(service.boardSelect(noticeVO));
 		String msg = "삭제 실패";
@@ -157,6 +154,29 @@ public class NoticeController {
 		mv.addObject("file", filesVO);
 		mv.addObject("board", board);
 		mv.setViewName("fileDown");
+		
+		return mv;
+	}
+	
+	@PostMapping("summerFile")
+	public ModelAndView summerFile(MultipartFile file, HttpSession session) throws Exception{
+		String fName = service.summerFile(file, session);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("result", fName);
+		mv.setViewName("common/common_ajax_result");
+		return mv;
+	}
+	
+	@PostMapping("summerFileDelete")
+	public ModelAndView summerFileDelete(String file, HttpSession session) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		String result = "실패!";
+		boolean check = service.summerFileDelete(file, session);
+		if (check) {
+			result = "삭제";
+		}
+		mv.addObject("result", result);
+		mv.setViewName("common/common_ajax_result");
 		
 		return mv;
 	}

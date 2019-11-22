@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.coo.s4.model.BoardQnaVO;
+import com.coo.s4.model.BoardVO;
 import com.coo.s4.model.QnaFilesVO;
 import com.coo.s4.service.BoardQnaService;
 import com.coo.s4.util.Pager;
@@ -48,7 +49,7 @@ public class QnAController {
 	}
 	
 	@RequestMapping(value = "qnaWrite",method = RequestMethod.POST)
-	public ModelAndView boardInsert(BoardQnaVO qnAVO,HttpSession session,MultipartFile [] file) throws Exception{
+	public ModelAndView boardInsert(BoardVO qnAVO,HttpSession session,MultipartFile [] file) throws Exception{
 		ModelAndView mv = new ModelAndView();
 		
 		int result = service.boardInsert(qnAVO,session,file);
@@ -67,7 +68,7 @@ public class QnAController {
 	
 	
 	@RequestMapping("qnaSelect")
-	public ModelAndView boardSelect(BoardQnaVO qnaVO) throws Exception {
+	public ModelAndView boardSelect(BoardVO qnaVO) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		
 		mv.addObject("vo", service.boardSelect(qnaVO));
@@ -78,7 +79,7 @@ public class QnAController {
 	}
 	
 	@RequestMapping(value = "qnaUpdate",method = RequestMethod.GET)
-	public ModelAndView boardUpdate(BoardQnaVO qnaVO) throws Exception{
+	public ModelAndView boardUpdate(BoardVO qnaVO) throws Exception{
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("board", board);
 		mv.addObject("vo", service.boardSelect(qnaVO));
@@ -88,7 +89,7 @@ public class QnAController {
 	}
 	
 	@RequestMapping(value = "qnaUpdate",method = RequestMethod.POST)
-	public ModelAndView boardUpdateResult(BoardQnaVO qnaVO,HttpSession session, MultipartFile[] file) throws Exception{
+	public ModelAndView boardUpdateResult(BoardVO qnaVO,HttpSession session, MultipartFile[] file) throws Exception{
 		
 		ModelAndView mv = new ModelAndView();
 		int result = service.boardUpdate(qnaVO,session,file);
@@ -109,7 +110,7 @@ public class QnAController {
 	
 	
 	@RequestMapping("qnaDelete")
-	public ModelAndView boardDelete(BoardQnaVO qnaVO) throws Exception{
+	public ModelAndView boardDelete(BoardVO qnaVO) throws Exception{
 		
 		ModelAndView mv = new ModelAndView();
 		int result = service.boardDelete(service.boardSelect(qnaVO));
@@ -125,7 +126,7 @@ public class QnAController {
 	}
 	
 	@RequestMapping(value = "qnaReply",method = RequestMethod.GET)
-	public ModelAndView boardReply(BoardQnaVO qnaVO) throws Exception{
+	public ModelAndView boardReply(BoardVO qnaVO) throws Exception{
 		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("vo", service.boardSelect(qnaVO));
@@ -136,9 +137,9 @@ public class QnAController {
 	}
 	
 	@RequestMapping(value = "qnaReply",method = RequestMethod.POST)
-	public ModelAndView boardReplyResult(BoardQnaVO qnaVO) throws Exception{
+	public ModelAndView boardReplyResult(BoardVO qnaVO,HttpSession session,MultipartFile[] file) throws Exception{
 		ModelAndView mv = new ModelAndView();
-		int result = service.boardReply(qnaVO);
+		int result = service.boardReply(qnaVO,session,file);
 		String msg = "작성 실패";
 		if (result>0) {
 			msg = "작성 성공";
@@ -153,7 +154,7 @@ public class QnAController {
 	}
 	
 	@GetMapping("qnaAddFile")
-	public ModelAndView noticeAddFile( )throws Exception{
+	public ModelAndView qnaAddFile( )throws Exception{
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("common/files");
 			

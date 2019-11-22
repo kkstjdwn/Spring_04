@@ -82,12 +82,21 @@ public class BoardQnaService implements BoardService {
 		return qnaDAO.boardDelete(boardVO);
 	}
 	
-	public int boardReply(BoardQnaVO qnaVO) throws Exception{
+	public int boardReply(BoardVO qnaVO,HttpSession session,MultipartFile[] file) throws Exception{
+		String realPath = session.getServletContext().getRealPath("resources/upload/qna");
+		BoardQnaVO qnaVO2 = new BoardQnaVO();
+		qnaVO2 = (BoardQnaVO)qnaVO;
+		QnaFilesVO filesVO = new QnaFilesVO();
+		qnaDAO.boardReply(qnaVO2);
+		for (MultipartFile multipartFile : file) {
+			if (multipartFile.getSize()!=0) {
+				
+			}
+		}
 		
-		
-		qnaDAO.boardReplyUpdate((BoardQnaVO)qnaDAO.boardSelect(qnaVO));
-		qnaVO.setStep(qnaVO.getStep()+1);
-		qnaVO.setDepth(qnaVO.getDepth()+1);
+		qnaDAO.boardReplyUpdate((BoardQnaVO)qnaDAO.boardSelect(qnaVO2));
+		qnaVO2.setStep(qnaVO2.getStep()+1);
+		qnaVO2.setDepth(qnaVO2.getDepth()+1);
 
 //		첫번째 방법
 //		BoardQnaVO child = new BoardQnaVO();
@@ -98,7 +107,7 @@ public class BoardQnaService implements BoardService {
 //		child.setStep(qnaVO.getStep()+1);
 //		child.setDepth(qnaVO.getDepth()+1);
 //		
-		return qnaDAO.boardReply(qnaVO); 
+		return qnaDAO.boardReply(qnaVO2); 
 	}
 	
 	public int fileDelete(QnaFilesVO filesVO) throws Exception{

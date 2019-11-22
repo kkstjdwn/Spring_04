@@ -8,9 +8,11 @@
 <body>
 <c:import url="layout/nav.jsp"/>
 <c:import url="layout/bootStrap.jsp"/>
+<c:import url="layout/summerNote.jsp"/>
 <h1>
 	Hello world!  
 </h1>
 <P>  The time on the server is ${serverTime}. </P>
+
 </body>
 </html>

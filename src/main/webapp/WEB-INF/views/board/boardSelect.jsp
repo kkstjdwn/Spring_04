@@ -48,8 +48,8 @@
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="contents">CONTENTS</label>
 				<div class="col-sm-10">
-					<textarea class="form-control" id="contents" name="contents"
-						readonly="readonly">${vo.contents }</textarea>
+					<div class="form-control" id="contents" name="contents">
+					${vo.contents }"</div>
 				</div>
 			</div>
 			<div class="form-group">

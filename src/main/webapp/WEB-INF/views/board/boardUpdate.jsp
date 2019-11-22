@@ -12,6 +12,7 @@
 <body>
 	<c:import url="../layout/nav.jsp" />
 	<c:import url="../layout/bootStrap.jsp" />
+	<c:import url="../layout/summerNote.jsp" />
 	<div class="container">
 		<h2>${fn:toUpperCase(board) } UPDATE</h2>
 		
@@ -33,7 +34,7 @@
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="contents">CONTENTS</label>
 				<div class="col-sm-10">
-					<textarea class="form-control" id="contents" name="contents">${vo.contents }</textarea>
+					<textarea class="form-control" id="contents" name="contents"></textarea>
 				</div>
 			</div>
 				<div id="files">
@@ -74,16 +75,12 @@
 			
 		</form>
 
-
-
-
-
 	</div>
 <script type="text/javascript">
 var count = 0;
-// if ($(".size").attr("id") != null) {
-// 	count = $(".size").attr("id");
-// }
+
+
+
 
 
  count = ${fn:length(vo.files)};
@@ -124,6 +121,16 @@ $("#add_file").click(function() {
 		$(this).parent().parent().remove();
 		count--;
 	});
+	
+	
+	
+	
+	$("#contents").summernote({
+		height:400
+	});
+	
+	$("#contents").summernote('code','${vo.contents}');
+	
 </script>
 </body>
 </html>
