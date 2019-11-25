@@ -53,6 +53,7 @@ public class BoardNoticeService implements BoardService {
 	public int boardInsert(BoardVO boardVO,HttpSession session, MultipartFile[] file) throws Exception {
 		String realPath = session.getServletContext().getRealPath("resources/upload/notice");
 		NoticeFilesVO filesVO = new NoticeFilesVO();
+		
 		int result = noticeDAO.boardInsert(boardVO);
 		filesVO.setNum(boardVO.getNum());
 		
