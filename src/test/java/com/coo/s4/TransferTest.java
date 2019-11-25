@@ -15,7 +15,7 @@ public class TransferTest extends TestAbstractCase{
 	@Test
 	public void test() {
 		
-		work.goToWork();
+		work.rideTaxi();
 		
 	}
 
