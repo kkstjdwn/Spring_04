@@ -41,18 +41,6 @@
 			<property name="dataSource" ref="dataSource"/>
 		</bean>
 		
-		<!-- transAction Advice 설정 -->
-		<tx:advice id="txAdvice" transaction-manager="txManager">
-			<tx:attributes>
-				<tx:method name="*" rollback-for="Exception"/>
-			</tx:attributes>	
-		</tx:advice>
+		<tx:annotation-driven/>
 		
-		<aop:config>
-				<aop:pointcut expression="execution(* com.coo.s4.service.*.*(..))" id="requireTX"/>
-				<aop:advisor advice-ref="txAdvice" pointcut-ref="requireTX"/>
-<!-- 			<aop:aspect ref="txAdvice" > -->
-<!-- 				<aop:after-throwing method="" pointcut-ref="requireTX"/> -->
-<!-- 			</aop:aspect> -->
-		</aop:config>
 </beans>
