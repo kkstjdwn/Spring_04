@@ -1,5 +1,6 @@
 package com.coo.s4.service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -16,6 +17,8 @@ import com.coo.s4.model.BoardVO;
 import com.coo.s4.model.NoticeFilesVO;
 import com.coo.s4.util.FileSaver;
 import com.coo.s4.util.Pager;
+
+import oracle.net.aso.e;
 
 @Service
 public class BoardNoticeService implements BoardService {
@@ -62,6 +65,9 @@ public class BoardNoticeService implements BoardService {
 				filesVO.setFname(saver.save(realPath, multipartFile));
 				filesVO.setOname(multipartFile.getOriginalFilename());
 				result = noticeFilesDAO.fileInsert(filesVO);
+				if (result<1) {
+					throw new SQLException();
+				}
 			}
 		}
 		
