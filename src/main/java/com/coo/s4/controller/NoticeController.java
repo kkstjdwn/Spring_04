@@ -2,6 +2,8 @@ package com.coo.s4.controller;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,7 +20,9 @@ import com.coo.s4.util.Pager;
 @RequestMapping("/notice/**")
 public class NoticeController {
 	
-	private String board = "notice";
+	@Value("${not}")
+	private String board;
+	
 	private int number = 0;
 	
 	@Inject

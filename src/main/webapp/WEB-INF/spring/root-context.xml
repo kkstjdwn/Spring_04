@@ -11,7 +11,7 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<!-- root-context.xml -->
-		<context:property-placeholder file-encoding="UTF-8" location="classpath:/properties/DataSource.properties"/>
+		<context:property-placeholder file-encoding="UTF-8" location="classpath:/properties/**/*.properties"/>
 
 		<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" id="dataSource">
 			<property name="username" value="${oracle.user}"/>
@@ -22,8 +22,8 @@
 		
 		<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactoryBean">
 			<property name="dataSource" ref="dataSource"/>
-			<property name="mapperLocations" value="classpath:/mybatis/mappers/*Mapper.xml"/>
-			<property name="configLocation" value="classpath:/mybatis/config/mybatisConfig.xml"/>
+			<property name="mapperLocations" value="classpath:/${my}/mappers/*Mapper.xml"/>
+			<property name="configLocation" value="classpath:/${my}/config/mybatisConfig.xml"/>
 		</bean>
 		<bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlSession">
 			<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactoryBean"/>
