@@ -78,14 +78,17 @@ public class NoticeController {
 		return mv;
 	}
 	
+	
 	@RequestMapping("noticeSelect")
-	public ModelAndView boardSelect(BoardVO noticeVO) throws Exception {
+	public ModelAndView boardSelect(@ModelAttribute BoardVO noticeVO) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		//mv.addObject("vo", service.boardSelect(noticeVO));
 		mv.setViewName("board/boardSelect");
 		return mv;
 		
 	}
+	
+	
 	
 	@RequestMapping(value = "noticeUpdate",method = RequestMethod.GET)
 	public ModelAndView boardUpdate(BoardVO noticeVO) throws Exception{
