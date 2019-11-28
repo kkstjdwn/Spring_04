@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,7 +21,8 @@ import com.coo.s4.util.Pager;
 @RequestMapping("/notice/**")
 public class NoticeController {
 	
-	@Value("${not}")
+	//@Value("${not}")
+	@Value("#{db['not']}")
 	private String board;
 	
 	private int number = 0;
@@ -28,12 +30,17 @@ public class NoticeController {
 	@Inject
 	public BoardNoticeService service;
 	
+	@ModelAttribute("board")
+	public String getBoard() {
+		return board;
+	}
+	
+	
 	@RequestMapping("noticeList")
 	public ModelAndView boardList(Pager pager)throws Exception{
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("list", service.boardList(pager));
 		mv.addObject("pager", pager);
-		mv.addObject("board", board);
 		mv.setViewName("board/boardList");
 		
 		return mv;
@@ -42,7 +49,6 @@ public class NoticeController {
 	@RequestMapping(value = "noticeWrite",method = RequestMethod.GET)
 	public ModelAndView boardWrite()throws Exception{
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("board", board);
 		mv.setViewName("board/boardWrite");
 		
 		return mv;
@@ -75,8 +81,7 @@ public class NoticeController {
 	@RequestMapping("noticeSelect")
 	public ModelAndView boardSelect(BoardVO noticeVO) throws Exception {
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("vo", service.boardSelect(noticeVO));
-		mv.addObject("board", board);
+		//mv.addObject("vo", service.boardSelect(noticeVO));
 		mv.setViewName("board/boardSelect");
 		return mv;
 		
@@ -86,7 +91,6 @@ public class NoticeController {
 	public ModelAndView boardUpdate(BoardVO noticeVO) throws Exception{
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("vo", service.boardSelect(noticeVO));
-		mv.addObject("board", board);
 		mv.setViewName("board/boardUpdate");
 		
 		return mv;
@@ -156,7 +160,6 @@ public class NoticeController {
 		filesVO = service.fileSelect(filesVO);
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("file", filesVO);
-		mv.addObject("board", board);
 		mv.setViewName("fileDown");
 		
 		return mv;

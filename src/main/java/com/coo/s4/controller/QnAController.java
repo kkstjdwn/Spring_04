@@ -3,8 +3,10 @@ package com.coo.s4.controller;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,22 +19,30 @@ import com.coo.s4.model.QnaFilesVO;
 import com.coo.s4.service.BoardQnaService;
 import com.coo.s4.util.Pager;
 
+import oracle.jdbc.proxy.annotation.Methods;
+
 @Controller
 @RequestMapping("/qna/**")
 public class QnAController {
 	
-	private String board = "qna";
+	@Value("#{db['qna']}")
+	private String board;
 	
 	@Inject
 	private BoardQnaService service;
 	
 	private int number=0;
 	
+	@ModelAttribute("board")
+	public String getBoard() {
+		return board;
+	}
+	
 	@RequestMapping("qnaList")
 	public ModelAndView boardList(Pager pager) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("list", service.boardList(pager));
-		mv.addObject("board", board);
+		
 		mv.addObject("pager", pager);
 		mv.setViewName("board/boardList");
 		
@@ -42,7 +52,7 @@ public class QnAController {
 	@RequestMapping(value = "qnaWrite",method = RequestMethod.GET)
 	public ModelAndView boardInsert() throws Exception{
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("board", board);
+		
 		mv.setViewName("board/boardWrite");
 		
 		return mv;
@@ -72,7 +82,7 @@ public class QnAController {
 		ModelAndView mv = new ModelAndView();
 		
 		mv.addObject("vo", service.boardSelect(qnaVO));
-		mv.addObject("board", board);
+		
 		mv.setViewName("board/boardSelect");
 		
 		return mv;
@@ -81,7 +91,7 @@ public class QnAController {
 	@RequestMapping(value = "qnaUpdate",method = RequestMethod.GET)
 	public ModelAndView boardUpdate(BoardVO qnaVO) throws Exception{
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("board", board);
+		
 		mv.addObject("vo", service.boardSelect(qnaVO));
 		mv.setViewName("board/boardUpdate");
 		
@@ -100,7 +110,7 @@ public class QnAController {
 		String path = "qnaList";
 		mv.addObject("msg", msg);
 		mv.addObject("path", path);
-		mv.addObject("board", board);
+		
 		mv.setViewName("common/common_result");
 		
 		return mv;
@@ -130,7 +140,7 @@ public class QnAController {
 		
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("vo", service.boardSelect(qnaVO));
-		mv.addObject("board", board);
+		
 		mv.setViewName("board/boardReply");
 		
 		return mv;
@@ -176,7 +186,7 @@ public class QnAController {
 		filesVO = service.fileSelect(filesVO);
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("file", filesVO);
-		mv.addObject("board", board);
+		
 		mv.setViewName("fileDown");
 		
 		return mv;

@@ -17,23 +17,23 @@
 				<label class="control-label col-sm-2" for="title">TITLE</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" id="title" name="title"
-						readonly="readonly" value="${vo.title }">
+						readonly="readonly" value="${boardVO.title }">
 				</div>
 			</div>
 
 
 			<!--***********************히든그룹 -->
 			<input type="hidden" class="form-control" id="num" name="num"
-				readonly="readonly" value="${vo.num }"> <input type="hidden"
+				readonly="readonly" value="${boardVO.num }"> <input type="hidden"
 				class="form-control" id="hit" name="hit" readonly="readonly"
-				value="${vo.hit }">
+				value="${boardVO.hit }">
 			<c:if test="${board eq 'qna' }">
 				<input type="hidden" class="form-control" id="ref" name="ref"
-					readonly="readonly" value="${vo.ref }">
+					readonly="readonly" value="${boardVO.ref }">
 				<input type="hidden" class="form-control" id="step" name="step"
-					readonly="readonly" value="${vo.step }">
+					readonly="readonly" value="${boardVO.step }">
 				<input type="hidden" class="form-control" id="depth" name="depth"
-					readonly="readonly" value="${vo.depth }">
+					readonly="readonly" value="${boardVO.depth }">
 			</c:if>
 			<!--***********************히든그룹 -->
 
@@ -42,27 +42,29 @@
 				<label class="control-label col-sm-2" for="writer">WRITER</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" id="writer" name="writer"
-						readonly="readonly" value="${vo.writer }">
+						readonly="readonly" value="${boardVO.writer }">
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="contents">CONTENTS</label>
 				<div class="col-sm-10">
 					<div class="form-control" id="contents" name="contents">
-					${vo.contents }</div>
+					${boardVO.contents }</div>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="reg_date">DATE</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" id="reg_date"
-						name="reg_date" readonly="readonly" value="${vo.reg_date }">
+						name="reg_date" readonly="readonly" value="${boardVO.reg_date }">
 				</div>
 			</div>
 			<div  class="form-group">
-			<c:forEach items="${vo.files }" var="file">
+			<c:catch>
+			<c:forEach items="${boardVO.files }" var="file">
 				<a href="fileDown?fnum=${file.fnum }">${file.oname }</a>
 			</c:forEach>
+			</c:catch>
 			</div>
 		</form>
 		
@@ -72,12 +74,12 @@
 			
 			<a href="${board}List" class="btn btn-primary btn_gp">목록</a>
 			<c:if test="${!empty member }">
-			<c:if test="${member.id eq vo.writer}">
-			<a href="${board}Update?num=${vo.num }" class="btn btn-warning">수정</a>
+			<c:if test="${member.id eq boardVO.writer}">
+			<a href="${board}Update?num=${boardVO.num }" class="btn btn-warning">수정</a>
 			<button class="btn btn-danger" id="delete">삭제</button>
 			</c:if>
 			<c:if test="${board ne 'notice'}">
-				<a href="${board}Reply?num=${vo.num }" class="btn btn-success"
+				<a href="${board}Reply?num=${boardVO.num }" class="btn btn-success"
 					id="btn_right">ANSER</a>
 			</c:if>
 			</c:if>
@@ -88,7 +90,7 @@
 	<script type="text/javascript">
 		$("#delete").click(function() {
 			if (confirm("삭제하시겠습니까?")) {
-				location.href="${board}Delete?num=${vo.num }";
+				location.href="${board}Delete?num=${boardVO.num }";
 			}
 		});
 	
