@@ -26,8 +26,8 @@ public class MemberServiceimpl implements MemberService {
 		
 		FileSaver fs = new FileSaver();
 		
-	 	memberVO.setFilename(fs.save3(realPath, memberVO.getFile()));
-	 	memberVO.setOriginalname(memberVO.getFile().getOriginalFilename());
+	 	memberVO.setFname(fs.save3(realPath, memberVO.getFile()));
+	 	memberVO.setOname(memberVO.getFile().getOriginalFilename());
 	 	
 	 	
 		

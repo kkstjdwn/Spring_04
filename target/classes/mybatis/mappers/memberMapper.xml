@@ -8,7 +8,7 @@
   <insert id="memberInsert" parameterType="MemberVO">
   	
   	insert into member(id,pw,name,email,birth,gender,filename, originalname)
-  	values(#{id},#{pw},#{name},#{email},#{birth},#{gender},#{filename},#{originalname})
+  	values(#{id},#{pw},#{name},#{email},#{birth},#{gender},#{fname},#{oname})
   	
   </insert>
   

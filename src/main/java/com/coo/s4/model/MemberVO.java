@@ -13,26 +13,25 @@ public class MemberVO {
 	private String gender;
 	private Integer point;
 	private MultipartFile file;
-	private String filename;
-	private String originalname;
+	private String fname;
+	private String oname;
 
 
-	public String getFilename() {
-		return filename;
+	public String getFname() {
+		return fname;
 	}
 
-	public void setFilename(String filename) {
-		this.filename = filename;
+	public void setFname(String fname) {
+		this.fname = fname;
 	}
 
-	public String getOriginalname() {
-		return originalname;
+	public String getOname() {
+		return oname;
 	}
 
-	public void setOriginalname(String originalname) {
-		this.originalname = originalname;
+	public void setOname(String oname) {
+		this.oname = oname;
 	}
-
 	public MultipartFile getFile() {
 		return file;
 	}

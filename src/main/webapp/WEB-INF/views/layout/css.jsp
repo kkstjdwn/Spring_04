@@ -91,6 +91,9 @@
 	height: auto;
 	}
 
+	.toUpper{
+	text-transform: uppercase;
+	}
 	
 	
 </style>
